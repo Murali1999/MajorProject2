@@ -1,0 +1,7 @@
+recon-ng
+
+dnsrecon
+dnsenum
+dotdotpwn
+dumpzilla
+blindelephant
