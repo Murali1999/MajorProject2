@@ -1,0 +1,9 @@
+Kali tools:
+dnsutils
+
+Python modules:
+subprocess
+textwrap
+prettytable
+termcolor
+terminaltables
