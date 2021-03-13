@@ -1,11 +1,14 @@
 import argparse
-import socket
-from subprocess import call
-import sys
+import socket, subprocess
+from subprocess import PIPE
+import sys, textwrap
 import os
 import re
 from termcolor import colored
 from colored import fg, bg, attr
+from terminaltables import AsciiTable, SingleTable
+from prettytable import PrettyTable
+from textwrap import fill, wrap
 
 #ascii banner for the cli tool
 ret=os.system('toilet --filter metal -f slant bugsploit')
