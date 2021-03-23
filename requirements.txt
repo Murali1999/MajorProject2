@@ -1,5 +1,6 @@
 Kali tools:
 dnsutils
+blindelephant
 
 Python modules:
 subprocess
