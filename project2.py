@@ -65,6 +65,23 @@ if (args.s):
     		)
     		return process
 	
+	def wappalyzer(url):
+		#urls = 'https://{}'.format(site).decode('ascii')
+		urls = 'https://'+url
+		#api_key = stdiomask.getpass(prompt='Enter your api key: ', mask='*')
+		endpoint = "https://api.wappalyzer.com/lookup/v2/?urls="
+		cmd1 = 'curl -s -H "x-api-key: dhVj82iF6Y81BaXZHnGEY7BH9pAxdoLraID1ePdn'
+		cmd2 = '" '+ endpoint + urls
+		cmd = cmd1 + cmd2
+		resource_response = subprocess.check_output(cmd, shell=True)
+		response = json.loads(resource_response)
+		ret = json.dumps(response,sort_keys=True, indent=4)
+		if "crawl" in ret:
+	        	ret = "Website being crawled, please try again in a few minutes."
+	        	print(ret)
+		else:
+	        	print(ret)
+	
 	#ret=cmdline('nslookup {} && dig +noall +answer +multiline txt {}'.format(site, site)).decode('ascii')
 	ret1=cmdline('dnsrecon -d {}'.format(site)).decode('ascii')
 	ret2=cmdline('dig @8.8.8.8 +nocmd {} any +multiline +noall +answer'.format(site)).decode('ascii')
@@ -73,6 +90,7 @@ if (args.s):
 	ret5=cmdline('uniscan -u {} -e | grep "Scan date:" -A30'.format(site)).decode('ascii')
 	ret6=cmdline('lbd {} | grep Checking -A20'.format(site)).decode('ascii')
 	ret7=cmdline('uniscan -u {} -g | grep "Scan date:" -A800'.format(site)).decode('ascii')
+	ret8=wappalyzer(site)
 	
 	table = texttable.Texttable()
 	table.set_cols_align(["c", "l"])
@@ -85,7 +103,8 @@ if (args.s):
 		["OS Fingerprinting:", ret4],
 		["Static Checks and Robots.txt and Sitemap.xml Check:", ret5],
 		["Load Balancing Check:", ret6],
-		["Web fingerprinting:", ret7]])
+		["Web fingerprinting:", ret7],
+		["Technologies used:", ret8]])
 	print(table.draw() + "\n")
 	
 query = args.d
