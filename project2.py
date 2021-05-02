@@ -30,7 +30,7 @@ example += "--------------------------------------------------------------------
 def msg(name=None):
 	return''' -> bugsploit -s site_name
 	[This tool is an automated tool which requires only the target site name to 
-	start the recon and fingerprinting process.] 
+	start the recon and fingerprinting process. Performs all the scans.] 
 	
 	-> bugsploit -d google_dork
 	[This option can be used to choose the target for the reconnaissance and 
