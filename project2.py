@@ -8,6 +8,8 @@ import os
 import re, random
 import texttable
 import requests
+import json
+import stdiomask
 from bs4 import BeautifulSoup
 
 #ascii banner for the CLI tool
@@ -68,19 +70,19 @@ if (args.s):
 	def wappalyzer(url):
 		#urls = 'https://{}'.format(site).decode('ascii')
 		urls = 'https://'+url
-		#api_key = stdiomask.getpass(prompt='Enter your api key: ', mask='*')
+		api_key = dhVj82iF6Y81BaXZHnGEY7BH9pAxdoLraID1ePdn
 		endpoint = "https://api.wappalyzer.com/lookup/v2/?urls="
-		cmd1 = 'curl -s -H "x-api-key: dhVj82iF6Y81BaXZHnGEY7BH9pAxdoLraID1ePdn'
+		cmd1 = 'curl -s -H "x-api-key: '
 		cmd2 = '" '+ endpoint + urls
-		cmd = cmd1 + cmd2
+		cmd = cmd1 + api_key + cmd2
 		resource_response = subprocess.check_output(cmd, shell=True)
 		response = json.loads(resource_response)
 		ret = json.dumps(response,sort_keys=True, indent=4)
 		if "crawl" in ret:
 	        	ret = "Website being crawled, please try again in a few minutes."
-	        	print(ret)
+	        	return ret
 		else:
-	        	print(ret)
+	        	return ret
 	
 	#ret=cmdline('nslookup {} && dig +noall +answer +multiline txt {}'.format(site, site)).decode('ascii')
 	ret1=cmdline('dnsrecon -d {}'.format(site)).decode('ascii')
