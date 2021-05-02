@@ -68,9 +68,8 @@ if (args.s):
     		return process
 	
 	def wappalyzer(url):
-		#urls = 'https://{}'.format(site).decode('ascii')
 		urls = 'https://'+url
-		api_key = dhVj82iF6Y81BaXZHnGEY7BH9pAxdoLraID1ePdn
+		api_key = 'dhVj82iF6Y81BaXZHnGEY7BH9pAxdoLraID1ePdn'
 		endpoint = "https://api.wappalyzer.com/lookup/v2/?urls="
 		cmd1 = 'curl -s -H "x-api-key: '
 		cmd2 = '" '+ endpoint + urls
@@ -85,14 +84,14 @@ if (args.s):
 	        	return ret
 	
 	#ret=cmdline('nslookup {} && dig +noall +answer +multiline txt {}'.format(site, site)).decode('ascii')
+	
 	ret1=cmdline('dnsrecon -d {}'.format(site)).decode('ascii')
 	ret2=cmdline('dig @8.8.8.8 +nocmd {} any +multiline +noall +answer'.format(site)).decode('ascii')
 	ret3=cmdline('python3 /root/Desktop/major1/cms-detector.py -s {}'.format(site)).decode('ascii')
 	ret4=cmdline('nmap -O {}'.format(site)).decode('ascii')
 	ret5=cmdline('uniscan -u {} -e | grep "Scan date:" -A30'.format(site)).decode('ascii')
-	ret6=cmdline('lbd {} | grep Checking -A20'.format(site)).decode('ascii')
-	ret7=cmdline('uniscan -u {} -g | grep "Scan date:" -A800'.format(site)).decode('ascii')
-	ret8=wappalyzer(site)
+	ret6=cmdline('uniscan -u {} -g | grep "Scan date:" -A800'.format(site)).decode('ascii')
+	ret7=wappalyzer(site)
 	
 	table = texttable.Texttable()
 	table.set_cols_align(["c", "l"])
@@ -104,9 +103,8 @@ if (args.s):
 		["CMS Detection:", ret3],
 		["OS Fingerprinting:", ret4],
 		["Static Checks and Robots.txt and Sitemap.xml Check:", ret5],
-		["Load Balancing Check:", ret6],
-		["Web fingerprinting:", ret7],
-		["Technologies used:", ret8]])
+		["Web fingerprinting:", ret6],
+		["Technologies used:", ret7]])
 	print(table.draw() + "\n")
 	
 query = args.d
