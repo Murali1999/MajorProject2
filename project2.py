@@ -6,9 +6,7 @@ from subprocess import PIPE
 import sys, textwrap
 import os
 import re, random
-from terminaltables import AsciiTable, SingleTable
-from prettytable import PrettyTable
-from textwrap import fill, wrap
+import texttable
 import requests
 from bs4 import BeautifulSoup
 
@@ -66,25 +64,30 @@ if (args.s):
         	shell = True
     		)
     		return process
+	
 	#ret=cmdline('nslookup {} && dig +noall +answer +multiline txt {}'.format(site, site)).decode('ascii')
 	ret1=cmdline('dnsrecon -d {}'.format(site)).decode('ascii')
 	ret2=cmdline('dig @8.8.8.8 +nocmd {} any +multiline +noall +answer'.format(site)).decode('ascii')
 	ret3=cmdline('python3 /root/Desktop/major1/cms-detector.py -s {}'.format(site)).decode('ascii')
 	ret4=cmdline('nmap -O {}'.format(site)).decode('ascii')
-
-	table = PrettyTable(padding_width=3)
-	table.title = 'Vulnerability Report'
-	table.align["Action Performed"] = 'c'
-	table.align["Output"] = 'c'
-	table.field_names = ["Action Performed", "Output"]
-	table.add_row(['DNS Lookup and Records: ', fill(ret1, width=60)])
-	table.add_row(['DNS Enumeration: ', fill(ret2, width=60)])
-	table.add_row(['CMS Detection: ', fill(ret3, width=60)])
-	table.add_row(['OS Fingerprinting: ', fill(ret4, width=60)])
-	table.hrules = 1
-	table.align = 'l'
-	print(table)
-
+	ret5=cmdline('uniscan -u {} -e | grep "Scan date:" -A30'.format(site)).decode('ascii')
+	ret6=cmdline('lbd {} | grep Checking -A20'.format(site)).decode('ascii')
+	ret7=cmdline('uniscan -u {} -g | grep "Scan date:" -A800'.format(site)).decode('ascii')
+	
+	table = texttable.Texttable()
+	table.set_cols_align(["c", "l"])
+	table.set_cols_valign(["t", "t"])
+	table.set_cols_width([20,100])
+	table.add_rows([["Operation Performed", "Output Generated"],
+                ["DNS Lookup & Records:", ret1],
+		["DNS Enumeration:", ret2],
+		["CMS Detection:", ret3],
+		["OS Fingerprinting:", ret4],
+		["Static Checks and Robots.txt and Sitemap.xml Check:", ret5],
+		["Load Balancing Check:", ret6],
+		["Web fingerprinting:", ret7]])
+	print(table.draw() + "\n")
+	
 query = args.d
 if (args.d):
 	print('Google Dork Results:')
