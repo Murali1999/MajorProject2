@@ -70,7 +70,7 @@ def cmdline(command):
 
 def wappalyzer(url):
 	urls = 'https://'+url
-	api_key = 'dhVj82iF6Y81BaXZHnGEY7BH9pAxdoLraID1ePdn'
+	api_key = '9NObxFYB5jZf7z8SdyC1xmrc1Wfk27cCZRmV5f00'
 	endpoint = "https://api.wappalyzer.com/lookup/v2/?urls="
 	cmd1 = 'curl -s -H "x-api-key: '
 	cmd2 = '" '+ endpoint + urls
