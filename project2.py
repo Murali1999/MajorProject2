@@ -14,6 +14,7 @@ import json
 import stdiomask
 import requests
 import datetime
+from fpdf import FPDF
 from bs4 import BeautifulSoup
 
 #ascii banner for the CLI tool
@@ -84,6 +85,14 @@ def wappalyzer(url):
 	else:
 		return ret
 
+ret1=cmdline('dnsrecon -d {}'.format(site)).decode('ascii')
+ret2=cmdline('dig @8.8.8.8 +nocmd {} any +multiline +noall +answer'.format(site)).decode('ascii')
+ret3=cmdline('python3 /root/Desktop/major1/cms-detector.py -s {}'.format(site)).decode('ascii')
+ret4=cmdline('nmap -O {}'.format(site)).decode('ascii')
+ret5=cmdline('uniscan -u {} -e | grep "Scan date:" -A30'.format(site)).decode('ascii')
+ret6=cmdline('uniscan -u {} -g | grep "Scan date:" -A800'.format(site)).decode('ascii')
+ret7=wappalyzer(site)
+	
 #recon and fingerprinting option
 if (args.s):
 	print('-> Target site name: {}'.format(site))
