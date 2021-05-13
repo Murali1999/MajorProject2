@@ -4,7 +4,8 @@ blindelephant
 
 Python modules:
 subprocess
-textwrap
-prettytable
-termcolor
-terminaltables
+texttable
+json
+stdiomask
+requests
+datetime
