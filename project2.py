@@ -28,18 +28,24 @@ if sys.version_info[0] < 3:
 #examples for reference
 example = "\nEXAMPLES: \n"
 example += "---------------------------------------------------------------------------------------------------> \n" 
-example += "root@kali:~/# bugsploit -s facebook.com   #Perform recon and fingerprinting on the target provided \n"                   
+example += "root@kali:~/# bugsploit -s facebook.com   #Perform recon and fingerprinting on the target provided \n"
+example += "root@kali:~/# bugsploit -s facebook.com -g  #Generate a report of the result in pdf format \n"
 example += "You can even add https:// or http:// to the target site \n"
 example += "---------------------------------------------------------------------------------------------------> \n"
 
 def msg(name=None):
 	return''' -> bugsploit -s site_name
-	[This tool is an automated tool which requires only the target site name to 
-	start the recon and fingerprinting process. Performs all the scans.] 
+	[This tool is an automated tool which requires only the target site name 
+	to start the recon and fingerprinting process. Performs all the scans and 
+	displays the result in a tabular format.] 
 	
 	-> bugsploit -d google_dork
 	[This option can be used to choose the target for the reconnaissance and 
 	fingerprinting process.]
+		
+	-> bugsploit -d site_name -g 
+	[This option displays the result in tabular format and also generates a 
+	report of the result in pdf format.]
 	'''
 
 #description about the tool
